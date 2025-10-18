@@ -1,0 +1,43 @@
+@use "sass:color";
+@use "../utils" as *;
+
+.button {
+  @include preset("4-bold");
+  display: inline-flex;
+  background-color: var(--white);
+  color: var(--rose-900);
+  padding: var(--space-125) var(--space-300);
+  border-radius: var(--space-500);
+  border: var(--space-12) solid var(--rose-400);
+  outline: 0;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  height: var(--space-600);
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  &:focus {
+    outline: var(--space-25) solid var(--neutral-900);
+    outline-offset: var(--space-25);
+  }
+
+  &--secondary {
+    @include preset("3");
+    background-color: var(--red);
+    border-color: var(--red);
+    color: var(--white);
+
+    &:hover {
+      --color: color-mix(in oklab, var(--red), var(--black) 20%);
+      border-color: var(--color);
+      background: var(--color);
+      color: var(--white);
+    }
+  }
+}

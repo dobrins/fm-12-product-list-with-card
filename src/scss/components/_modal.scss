@@ -1,0 +1,93 @@
+@use "../utils" as *;
+
+.backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: rgb(0 0 0 / 60%);
+  display: grid;
+  place-items: center;
+  padding-block: var(--space-600);
+
+  @include mq(s) {
+    place-items: end;
+    padding-block: var(--space-600) 0;
+  }
+}
+
+.modal {
+  display: grid;
+  max-width: 37rem;
+  width: 100%;
+  border-radius: var(--space-150);
+  background-color: var(--white);
+  transform: translateY(0);
+  animation: slideIn 0.5s ease-out;
+  padding: var(--space-500);
+  gap: var(--space-400);
+  max-height: 100%;
+  overflow-y: auto;
+
+  @include mq(s) {
+    padding: var(--space-300);
+    border-radius: var(--space-150) var(--space-150) 0 0;
+  }
+
+  img {
+    width: auto;
+    width: var(--space-600);
+    height: var(--space-600);
+  }
+
+  hr {
+    width: 100%;
+    height: var(--space-12);
+    background: var(--rose-100);
+    border: 0;
+  }
+
+  &__title {
+    @include preset("1");
+    margin-block-start: var(--space-300);
+  }
+
+  &__subtitle {
+    @include preset("3");
+    color: var(--rose-500);
+    margin-block-start: var(--space-100);
+    font-weight: var(--font-regular);
+  }
+
+  &__items {
+    display: grid;
+    gap: var(--space-300);
+    background-color: var(--rose-50);
+    padding: var(--space-300);
+    border-radius: var(--space-100);
+  }
+
+  &__total {
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-columns: repeat(2, max-content);
+
+    span {
+      @include preset("4");
+    }
+
+    strong {
+      @include preset("2");
+    }
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(100vh);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

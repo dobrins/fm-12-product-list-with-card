@@ -1,0 +1,61 @@
+@use "../utils" as *;
+
+.cart-item {
+  display: grid;
+  grid-template-columns: auto min-content;
+  row-gap: var(--space-100);
+  padding-block: var(--space-200);
+  border-block-end: var(--space-12) solid var(--rose-100);
+
+  &__name {
+    @include preset("4-bold");
+  }
+
+  &__details {
+    grid-column: 1 / 2;
+    display: flex;
+    gap: var(--space-100);
+  }
+
+  &__count {
+    @include preset("4-bold");
+    color: var(--red);
+  }
+
+  &__single-price {
+    @include preset("4");
+    color: var(--rose-500);
+  }
+
+  &__total {
+    @include preset("4-bold");
+    color: var(--rose-500);
+  }
+
+  &__remove {
+    grid-column: 2 / -1;
+    grid-row: 1 / 3;
+    align-self: center;
+    display: grid;
+    width: var(--space-250);
+    height: var(--space-250);
+    border: 1px solid var(--rose-400);
+    background-color: var(--white);
+    border-radius: 50%;
+    cursor: pointer;
+    place-content: center;
+
+    &:hover {
+      border-color: var(--rose-900);
+
+      svg {
+        fill: var(--rose-900);
+      }
+    }
+
+    svg {
+      width: auto;
+      fill: var(--rose-400);
+    }
+  }
+}

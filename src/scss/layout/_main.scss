@@ -1,0 +1,15 @@
+@use "../utils" as *;
+
+main {
+  @include container;
+  display: grid;
+  grid-template-columns: auto 24rem;
+  gap: var(--space-400);
+  margin-block-start: var(--space-1100);
+  align-items: start;
+  padding-block-end: var(--space-400);
+
+  @include mq(m) {
+    grid-template-columns: auto;
+  }
+}

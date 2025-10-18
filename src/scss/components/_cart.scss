@@ -1,0 +1,62 @@
+@use "../utils" as *;
+
+.cart {
+  background-color: var(--white);
+  border-radius: var(--space-150);
+  padding: var(--space-300);
+  display: grid;
+  gap: var(--space-300);
+
+  &__title {
+    @include preset("2");
+    color: var(--red);
+  }
+
+  &__attributes {
+    display: grid;
+    gap: var(--space-300);
+  }
+
+  &__total {
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-columns: repeat(2, max-content);
+
+    span {
+      @include preset("4");
+    }
+
+    strong {
+      @include preset("2");
+    }
+  }
+
+  &__carbon-neutral {
+    @include preset("4");
+    background-color: var(--rose-50);
+    padding-block: var(--space-200);
+    border-radius: var(--space-100);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-100);
+
+    img {
+      width: var(--space-250);
+    }
+
+    strong {
+      @include preset("4-bold");
+    }
+  }
+
+  &__empty {
+    @include preset("4-bold");
+    display: grid;
+    justify-items: center;
+    padding: var(--space-200);
+    gap: var(--space-200);
+    color: var(--rose-500);
+  }
+}

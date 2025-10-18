@@ -1,0 +1,48 @@
+@use "../utils" as *;
+
+.dessert {
+  display: grid;
+  gap: var(--space-500);
+
+  & > div {
+    position: relative;
+    display: grid;
+    gap: var(--space-50);
+  }
+
+  &__button {
+    width: 10rem;
+    position: absolute;
+    display: grid;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+
+  &__image {
+    position: relative;
+
+    &--active {
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        box-shadow: inset 0 0 0 2px var(--red);
+        border-radius: var(--space-100);
+      }
+    }
+
+    img {
+      border-radius: var(--space-100);
+      position: relative;
+    }
+  }
+  &__category {
+    @include preset("4");
+    color: var(--rose-500);
+  }
+
+  &__price {
+    color: var(--red);
+  }
+}

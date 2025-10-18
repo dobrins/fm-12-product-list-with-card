@@ -1,0 +1,77 @@
+@use "variables" as *;
+@use "sass:map";
+
+/* Media Queries */
+
+@mixin mq($breakpoint) {
+  @if $breakpoint == s {
+    @media (width <= 40em) {
+      @content;
+    }
+  } @else if $breakpoint == m {
+    @media (width <= 60em) {
+      @content;
+    }
+  }
+}
+
+/* Typography */
+
+$preset-styles: (
+  "1": (
+    font-size: var(--space-500),
+    font-weight: var(--font-bold),
+    line-height: 1.2,
+  ),
+  "2": (
+    font-size: var(--space-300),
+    font-weight: var(--font-bold),
+    line-height: 1.25,
+  ),
+  "3": (
+    font-size: var(--space-200),
+    font-weight: var(--font-semibold),
+    line-height: 1.5,
+  ),
+  "4": (
+    font-size: var(--space-175),
+    font-weight: var(--font-regular),
+    line-height: 1.5,
+  ),
+  "4-bold": (
+    font-size: var(--space-175),
+    font-weight: var(--font-semibold),
+    line-height: 1.5,
+  ),
+);
+
+@mixin preset($n) {
+  $preset: map.get($preset-styles, $n);
+
+  @if $preset {
+    font-family: map.get($preset, font-family);
+    font-size: map.get($preset, font-size);
+    font-weight: map.get($preset, font-weight);
+    line-height: map.get($preset, line-height);
+    letter-spacing: map.get($preset, letter-spacing);
+  }
+}
+
+@mixin container {
+  width: calc(100% - var(--space-800));
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: var(--space-400);
+  box-sizing: content-box;
+
+  @include mq(s) {
+    width: calc(100% - var(--space-400));
+    padding-inline: var(--space-200);
+  }
+}
+
+@mixin ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

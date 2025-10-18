@@ -1,0 +1,39 @@
+@use "../utils" as *;
+
+.plus-minus {
+  @include preset("4-bold");
+  background-color: var(--red);
+  display: grid;
+  grid-template-columns: min-content auto min-content;
+  color: var(--white);
+  text-align: center;
+  border-radius: var(--space-600);
+  align-items: center;
+  padding: var(--space-125) var(--space-150);
+  height: var(--space-600);
+
+  &__minus,
+  &__plus {
+    display: grid;
+    width: var(--space-250);
+    height: var(--space-250);
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid var(--white);
+    border-radius: 50%;
+    cursor: pointer;
+    place-content: center;
+
+    &:hover {
+      background-color: var(--white);
+
+      svg {
+        fill: var(--red);
+      }
+    }
+
+    svg {
+      fill: var(--white);
+    }
+  }
+}

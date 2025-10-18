@@ -1,0 +1,16 @@
+@use "../utils" as *;
+
+.desserts {
+  display: grid;
+  gap: var(--space-400);
+
+  &__title {
+    @include preset("1");
+  }
+
+  &__grid {
+    display: grid;
+    gap: var(--space-300);
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  }
+}
