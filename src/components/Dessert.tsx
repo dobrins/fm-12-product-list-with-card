@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import DessertButton from "./DessertButton";
 import type { TDessert } from "../types/types";
 import type { RootState } from "../store";
+import { getCartItemCount } from "../utils/cartUtils";
+import { formatCurrency } from "../utils/currency";
 
 interface PassedProps {
   dessert: TDessert;
@@ -13,14 +15,8 @@ type Dessert = {
 };
 
 const Dessert = ({ dessert }: PassedProps) => {
-  const price = Number(dessert.price).toFixed(2);
   const cart = useSelector((state: RootState) => state.cart.desserts);
-  const i = cart.findIndex((d) => d.id === dessert.id);
-
-  let count;
-  if (i !== -1) {
-    count = cart[i].count;
-  }
+  const count = getCartItemCount(cart, dessert.id);
 
   const style = `dessert__image ${
     count ? "dessert__image--active" : undefined
@@ -56,7 +52,7 @@ const Dessert = ({ dessert }: PassedProps) => {
       <div>
         <span className="dessert__category">{dessert.category}</span>
         <span className="dessert__name">{dessert.name}</span>
-        <span className="dessert__price">${price}</span>
+        <span className="dessert__price">{formatCurrency(dessert.price)}</span>
       </div>
     </li>
   );

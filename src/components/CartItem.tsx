@@ -2,6 +2,8 @@ import { useDispatch } from "react-redux";
 import { removeItem } from "../store/cartSlice";
 import type { AppDispatch } from "../store";
 import type { TDessert } from "../types/types";
+import { formatCurrency } from "../utils/currency";
+import { calculateLineItemTotal } from "../utils/cartUtils";
 
 interface PassedProps extends Pick<TDessert, "name" | "price" | "id"> {
   count: number;
@@ -10,7 +12,7 @@ interface PassedProps extends Pick<TDessert, "name" | "price" | "id"> {
 const CartItem = ({ name, price, count, id }: PassedProps) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const total = count * price!;
+  const total = calculateLineItemTotal(price!, count);
 
   const handleRemove = () => {
     dispatch(removeItem({ id, all: true }));
@@ -22,9 +24,9 @@ const CartItem = ({ name, price, count, id }: PassedProps) => {
       <span className="cart-item__details">
         <span className="cart-item__count">{count}x</span>
         <span className="cart-item__single-price">
-          @ ${Number(price).toFixed(2)}
+          @ {formatCurrency(price!)}
         </span>
-        <span className="cart-item__total">${total}</span>
+        <span className="cart-item__total">{formatCurrency(total)}</span>
       </span>
       <span
         className="cart-item__remove"

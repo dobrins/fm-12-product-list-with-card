@@ -1,4 +1,6 @@
 import type { TDessert } from "../types/types";
+import { formatCurrency } from "../utils/currency";
+import { calculateLineItemTotal } from "../utils/cartUtils";
 
 interface PassedProps extends Pick<TDessert, "name" | "price"> {
   count: number;
@@ -6,7 +8,7 @@ interface PassedProps extends Pick<TDessert, "name" | "price"> {
 }
 
 const CartItemModal = ({ name, price, count, thumbnail }: PassedProps) => {
-  const total = count * price!;
+  const total = calculateLineItemTotal(price!, count);
 
   return (
     <div className="cart-item-modal">
@@ -22,11 +24,11 @@ const CartItemModal = ({ name, price, count, thumbnail }: PassedProps) => {
       <span className="cart-item-modal__details">
         <span className="cart-item-modal__count">{count}x</span>
         <span className="cart-item-modal__single-price">
-          @ ${Number(price).toFixed(2)}
+          @ {formatCurrency(price!)}
         </span>
       </span>
       <span className="cart-item-modal__total">
-        ${Number(total).toFixed(2)}
+        {formatCurrency(total)}
       </span>
     </div>
   );

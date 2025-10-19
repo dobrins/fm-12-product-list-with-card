@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { TDessert } from "../types/types";
 
-type Dessert = {
-  id: number;
+type Dessert = Pick<TDessert, "id"> & {
   count: number;
 };
 
@@ -10,13 +10,13 @@ type DessertState = {
 };
 
 type RemoveItem = {
-  id: number;
+  id: TDessert["id"];
   all?: boolean;
   empty?: boolean;
 };
 
 type AddItem = {
-  id: number;
+  id: TDessert["id"];
 };
 
 const initialState: DessertState = {

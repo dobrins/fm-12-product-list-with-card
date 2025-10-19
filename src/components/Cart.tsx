@@ -5,12 +5,12 @@ import { removeAll } from "../store/cartSlice";
 import data from "../data/data.json";
 import type { RootState, AppDispatch } from "../store";
 import type { TDessert } from "../types/types";
+import { formatCurrency } from "../utils/currency";
+import { createDessertMap, calculateCartTotal } from "../utils/cartUtils";
 import CartItem from "./CartItem";
 import ModalContent from "./Modal";
 
-const byId = new Map<number, TDessert>(
-  (data as TDessert[]).map((d) => [d.id, d])
-);
+const byId = createDessertMap(data as TDessert[]);
 
 const Cart = () => {
   const [showModal, setShowModal] = useState(false);
@@ -19,10 +19,7 @@ const Cart = () => {
   const cart = useSelector((state: RootState) => state.cart.desserts);
 
   const count = cart.reduce((sum, n) => sum + n.count, 0);
-  const total = cart.reduce((sum, n) => {
-    const item = byId.get(n.id);
-    return item ? sum + item.price * n.count : sum;
-  }, 0);
+  const total = calculateCartTotal(cart, byId);
 
   const handleCloseModal = () => {
     dispatch(removeAll());
@@ -34,19 +31,17 @@ const Cart = () => {
       return;
     }
 
-    const { style } = document.body;
-    if (showModal) style.overflow = "hidden";
-    else style.overflow = "";
+    document.body.style.overflow = "hidden";
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setShowModal(!showModal);
+        setShowModal(false);
       }
     };
     document.addEventListener("keydown", onKey);
     return () => {
       document.removeEventListener("keydown", onKey);
-      style.overflow = "";
+      document.body.style.overflow = "";
     };
   }, [showModal]);
 
@@ -78,7 +73,7 @@ const Cart = () => {
           <div className="cart__attributes">
             <div className="cart__total">
               <span>Order Total</span>
-              <strong>${total.toFixed(2)}</strong>
+              <strong>{formatCurrency(total)}</strong>
             </div>
             <div className="cart__carbon-neutral">
               <img

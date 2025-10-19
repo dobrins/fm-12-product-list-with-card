@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import data from "../data/data.json";
 import type { RootState } from "../store";
 import type { TDessert } from "../types/types";
+import { formatCurrency } from "../utils/currency";
+import { createDessertMap, calculateCartTotal } from "../utils/cartUtils";
 import CartItemModal from "./CartItemModal";
 
-const byId = new Map<number, TDessert>(
-  (data as TDessert[]).map((d) => [d.id, d])
-);
+const byId = createDessertMap(data as TDessert[]);
 
 interface PassedProps {
   onClose: () => void;
@@ -19,10 +19,7 @@ const Modal = ({ onClose, onCloseModal }: PassedProps) => {
 
   const backdropRef = useRef<HTMLDivElement>(null);
 
-  const total = cart.reduce((sum, n) => {
-    const item = byId.get(n.id);
-    return item ? sum + item.price * n.count : sum;
-  }, 0);
+  const total = calculateCartTotal(cart, byId);
 
   useEffect(() => {
     const el = backdropRef.current;
@@ -76,7 +73,7 @@ const Modal = ({ onClose, onCloseModal }: PassedProps) => {
           <hr />
           <div className="cart__total">
             <span>Order Total</span>
-            <strong>${total.toFixed(2)}</strong>
+            <strong>{formatCurrency(total)}</strong>
           </div>
         </div>
         <button

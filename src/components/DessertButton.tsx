@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, removeItem } from "../store/cartSlice";
 import type { AppDispatch, RootState } from "../store";
+import { getCartItemCount } from "../utils/cartUtils";
 import cartImg from "../../public/images/icon-add-to-cart.svg";
 
 interface PassedProps {
@@ -11,12 +12,7 @@ const DessertButton = ({ id }: PassedProps) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const cart = useSelector((state: RootState) => state.cart.desserts);
-  const i = cart.findIndex((d) => d.id === id);
-
-  let count;
-  if (i !== -1) {
-    count = cart[i].count;
-  }
+  const count = getCartItemCount(cart, id);
 
   return (
     <div className="dessert__button">
